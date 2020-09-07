@@ -1,7 +1,8 @@
-from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import sqlite3
 from time import sleep
 
 
@@ -40,5 +41,23 @@ class Rozklad:
 
 
 
-# one_inst = Rozklad()
-# print(one_inst.get_tomorrow())
+one_inst = Rozklad()
+x = one_inst.get_tomorrow()
+
+conn = sqlite3.connect('rozklad.sqlite')
+cur = conn.cursor()
+
+cur.execute('''DROP TABLE IF EXISTS Classes''')
+
+cur.execute('''CREATE TABLE Classes
+    (week_No INTEGER, weekday TEXT, No INTEGER, class TEXT, link TEXT)''')
+
+print('Filling the Databse')
+for i in x.items():
+    cur.execute('''INSERT OR IGNORE INTO Classes (week_No, weekday, No, class)
+        VALUES ( ?, ?, ?, ? )''', ( 2, 'tuesday', i[0], i[1] ))
+    print('Adding', i)
+
+conn.commit()
+conn.close()
+print('Database filled')

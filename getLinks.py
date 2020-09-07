@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import sqlite3
 from time import sleep
 
 class Google:
@@ -57,3 +58,23 @@ password = 'Killer0304'
 # two_inst.q()
 # print(toa)
 # print(moac)
+
+link1 = '1'
+link2 = '2'
+links = [link1, ' ', link2]
+
+
+conn = sqlite3.connect('rozklad.sqlite')
+cur = conn.cursor()
+
+print('Filling the Databse')
+l_count = 1
+for i in links:
+    print('Adding', i)
+    cur.execute("UPDATE Classes SET link = ? WHERE No = ?", (i, l_count))
+    l_count += 1
+
+
+conn.commit()
+conn.close()
+print('Database filled')

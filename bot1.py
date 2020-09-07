@@ -1,9 +1,10 @@
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
 import requests
 import re
+import sqlite3
 import config
-import getClasses
-import getLinks
+# import getClasses
+# import getLinks
 
 def get_url():
     contents = requests.get('https://random.dog/woof.json').json()
@@ -11,24 +12,38 @@ def get_url():
     return url
 
 
-one_inst = getClasses.Rozklad()
+# one_inst = getClasses.Rozklad()
+#
+# two_inst = getLinks.Google(getLinks.username, getLinks.password)
+# two_inst.login()
+# toa = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg0Nzk1NDgw')
+# moac = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyOTA5NzE0MzM2')
+# two_inst.q()
+# print(toa)
+# print(moac)
+#
+# links = [toa, '', moac]
 
-two_inst = getLinks.Google(getLinks.username, getLinks.password)
-two_inst.login()
-toa = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg0Nzk1NDgw')
-moac = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyOTA5NzE0MzM2')
-two_inst.q()
-print(toa)
-print(moac)
 
-links = [toa, '', moac]
+# database
+conn = sqlite3.connect('rozklad.sqlite')
+cur = conn.cursor()
+
+rozkladData_lst = list()
+
+rozkladData = cur.execute('SELECT * FROM Classes')
+# print(rozkladData)
+for x in rozkladData:
+    rozkladData_lst.append(x)
+
+conn.close()
+
+
+######formatting
 
 mes = ''
-
-c = 0
-for i in one_inst.get_tomorrow().items():
-    mes += str(i[0]) + '.\t' + str(i[1]) + '\n' + str(links[c]) + '\n\n'
-    c += 1
+for i in rozkladData_lst:
+    mes += str(i[1]) + '.\t' + i[3] + '\n' + i[4] + '\n\n'
 
 
 def chotamzavtra(bot, update):
