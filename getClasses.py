@@ -21,7 +21,7 @@ class Rozklad:
         # inpt.send_keys(self.group)
         # inpt.send_keys(Keys.RETURN)
 
-    def get_tomorrow(self):
+    def get_rozklad(self):
 
         url = 'http://rozklad.kpi.ua/Schedules/ViewSchedule.aspx?g=89a385d9-a264-4981-aa91-d7e12eb14730'
         html = urlopen(url).read()
@@ -30,34 +30,71 @@ class Rozklad:
         w1 = soup('table')[0]
         w2 = soup('table')[1]
         week1 = {}
-        tuesday = {}
-        week1['tuesday'] = tuesday
-        tuesday[1] = w2.tr.next_sibling.td.next_sibling.next_sibling.text
-        tuesday[2] = w2.tr.next_sibling.next_sibling.td.next_sibling.next_sibling.text
-        tuesday[3] = w2.tr.next_sibling.next_sibling.next_sibling.td.next_sibling.next_sibling.text
-        return week1['tuesday']
+        week2 = {}
+        rozklad = {'week1': week1, 'week2': week2}
 
+        mon = [x for x in w1.tr.next_siblings]
+        mon.remove(mon[-1])
+        mon = [x.td.next_sibling.text for x in mon]
 
+        tue = [x for x in w1.tr.next_siblings]
+        tue.remove(tue[-1])
+        tue = [x.td.next_sibling.next_sibling.text for x in tue]
 
+        wed = [x for x in w1.tr.next_siblings]
+        wed.remove(wed[-1])
+        wed = [x.td.next_sibling.next_sibling.next_sibling.text for x in wed]
 
+        thu = [x for x in w1.tr.next_siblings]
+        thu.remove(thu[-1])
+        thu = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.text for x in thu]
 
-one_inst = Rozklad()
-x = one_inst.get_tomorrow()
+        fri = [x for x in w1.tr.next_siblings]
+        fri.remove(fri[-1])
+        fri = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text for x in fri]
 
-conn = sqlite3.connect('rozklad.sqlite')
-cur = conn.cursor()
+        sat = [x for x in w1.tr.next_siblings]
+        sat.remove(sat[-1])
+        sat = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text for x in sat]
+        wd1 = [mon, tue, wed, thu, fri, sat]
 
-cur.execute('''DROP TABLE IF EXISTS Classes''')
+        mon = [x for x in w2.tr.next_siblings]
+        mon.remove(mon[-1])
+        mon = [x.td.next_sibling.text for x in mon]
 
-cur.execute('''CREATE TABLE Classes
-    (week_No INTEGER, weekday TEXT, No INTEGER, class TEXT, link TEXT)''')
+        tue = [x for x in w2.tr.next_siblings]
+        tue.remove(tue[-1])
+        tue = [x.td.next_sibling.next_sibling.text for x in tue]
 
-print('Filling the Databse')
-for i in x.items():
-    cur.execute('''INSERT OR IGNORE INTO Classes (week_No, weekday, No, class)
-        VALUES ( ?, ?, ?, ? )''', ( 2, 'tuesday', i[0], i[1] ))
-    print('Adding', i)
+        wed = [x for x in w2.tr.next_siblings]
+        wed.remove(wed[-1])
+        wed = [x.td.next_sibling.next_sibling.next_sibling.text for x in wed]
 
-conn.commit()
-conn.close()
-print('Database filled')
+        thu = [x for x in w2.tr.next_siblings]
+        thu.remove(thu[-1])
+        thu = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.text for x in thu]
+
+        fri = [x for x in w2.tr.next_siblings]
+        fri.remove(fri[-1])
+        fri = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text for x in fri]
+
+        sat = [x for x in w2.tr.next_siblings]
+        sat.remove(sat[-1])
+        sat = [x.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text for x in sat]
+        wd2 = [mon, tue, wed, thu, fri, sat]
+
+        weekdays = []
+        for weekday in w2.tr.td.next_siblings:
+            weekdays.append(weekday)
+        weekdays.remove(weekdays[-1])
+        weekdays = [i.contents[0] for i in weekdays]
+        count_z1 = 0
+        for weekday in weekdays:
+            week1[weekday] = wd1[count_z1]
+            count_z1 += 1
+        count_z2 = 0
+        for weekday in weekdays:
+            week2[weekday] = wd2[count_z2]
+            count_z2 += 1
+
+        return rozklad
