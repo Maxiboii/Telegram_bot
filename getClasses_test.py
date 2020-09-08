@@ -220,8 +220,8 @@ class Rozklad:
         return rozklad
 
 
-# one_inst = Rozklad()
-# x = one_inst.get_rozklad()
+one_inst = Rozklad()
+x = one_inst.get_rozklad()
 
 # conn = sqlite3.connect('rozklad.sqlite')
 # cur = conn.cursor()

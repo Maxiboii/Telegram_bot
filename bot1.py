@@ -44,7 +44,7 @@ def update_DB():
     cur.execute('''DROP TABLE IF EXISTS Classes''')
 
     cur.execute('''CREATE TABLE Classes
-        (id INTEGER UNIQUE, week_No INTEGER, weekday TEXT, No INTEGER, class TEXT, link TEXT)''')
+        (id INTEGER UNIQUE, week_No INTEGER, weekday TEXT, No INTEGER, tm TEXT, teacher TEXT, class TEXT, room TEXT, link TEXT)''')
 
     print('Filling the Databse')
     count_id = 0
@@ -53,8 +53,9 @@ def update_DB():
         subj_count = 1
         for subj in x['week1'][dayk]:
             if subj != '':
-                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, class)
-                    VALUES ( ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj ))
+                print(subj)
+                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, tm, teacher, class, room)
+                    VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj[0], subj[1], subj[2], subj[3] ))
                 count_id += 1
                 print('Adding', subj)
             subj_count += 1
@@ -65,8 +66,8 @@ def update_DB():
         subj_count = 1
         for subj in x['week2'][dayk]:
             if subj != '':
-                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, class)
-                    VALUES ( ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj ))
+                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, tm, teacher, class, room)
+                    VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj[0], subj[1], subj[2], subj[3] ))
                 count_id += 1
                 print('Adding', subj)
             subj_count += 1
@@ -189,8 +190,10 @@ def get_mes(week, day):
     for i in da_suka[str(week)]:
         for s in i:
             if day in s:
-                mes += str(s[3]) + '.\t' + (str(s[4]) + '\n') + '-  ' + s[5] + '\n\n'
+                mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + ' ' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
     return mes
+
+print(get_mes(*what_is_today(today_week_number, today_weekday)))
 
 
 def chotamsednya(bot, update):
