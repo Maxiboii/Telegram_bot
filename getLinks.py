@@ -10,11 +10,11 @@ class Google:
         self.password = password
 
     def login(self):
-        try:
-            self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
-        except:
-            self.driver=webdriver.Chrome()
-        self.driver.get('https://www.coursera.org/?authMode=login')
+        # try:
+        #     self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
+        # except:
+        #
+        self.driver=webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver')
         original_window = self.driver.current_window_handle
         sleep(5)
         self.driver.find_element_by_xpath('//*[@id="authentication-box-content"]/div/div[1]/div[1]/button/span').click()
