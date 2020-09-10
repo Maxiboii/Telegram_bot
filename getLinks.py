@@ -18,6 +18,7 @@ class Google:
         chrome_options.add_argument('--headless')
 
         self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
+        self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
         self.driver.find_element_by_xpath('//*[@id="authentication-box-content"]/div/div[1]/div[1]/button/span').click()
