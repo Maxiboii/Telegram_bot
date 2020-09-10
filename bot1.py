@@ -194,8 +194,6 @@ def get_mes(week, day):
                 mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + '\n' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
     return mes
 
-print(get_mes(*what_is_today(today_week_number, today_weekday)))
-
 
 def chotamsednya(bot, update):
     chat_id = update.message.chat_id
