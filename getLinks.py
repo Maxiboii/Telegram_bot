@@ -14,7 +14,7 @@ class Google:
         #     self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
         # except:
         #
-        self.driver=webdriver.Chrome()
+        self.driver=webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver')
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
