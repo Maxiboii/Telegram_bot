@@ -10,10 +10,11 @@ class Google:
         self.password = password
 
     def login(self):
-        try:
-            self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
-        except:
-            self.driver=webdriver.Chrome()
+        # try:
+        #     self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
+        # except:
+        #
+        self.driver=webdriver.Chrome()
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
