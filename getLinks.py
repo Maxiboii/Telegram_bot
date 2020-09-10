@@ -14,7 +14,10 @@ class Google:
         #     self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
         # except:
         #
-        self.driver=webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--headless')
+
+        self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
         original_window = self.driver.current_window_handle
         sleep(5)
         self.driver.find_element_by_xpath('//*[@id="authentication-box-content"]/div/div[1]/div[1]/button/span').click()
