@@ -84,12 +84,13 @@ def update_DB():
     oke = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg5MzU4NTU1')
     angl = 'вона нас не любить :с'
     moac = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyOTA5NzE0MzM2')
+    nastenka = 'https://meet.google.com/xwq-zvks-mgw'
     schema = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyMDE1ODE3ODYz')
     tps = two_inst.get_link('https://classroom.google.com/u/1/c/MTQ4OTI1MjY2Njc1')
     two_inst.q()
 
     links = [toa,oke,oke,oke,toa,angl,moac,toa,schema,schema,schema,
-            tps,tps,moac,moac,oke,oke,toa,angl,moac,toa,schema,schema,tps,tps,moac]
+            tps,tps,nastenka,moac,oke,oke,toa,angl,moac,toa,schema,schema,tps,tps,nastenka]
 
     conn = sqlite3.connect('rozklad.sqlite')
     cur = conn.cursor()
@@ -190,7 +191,7 @@ def get_mes(week, day):
     for i in da_suka[str(week)]:
         for s in i:
             if day in s:
-                mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + ' ' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
+                mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + '\n' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
     return mes
 
 print(get_mes(*what_is_today(today_week_number, today_weekday)))

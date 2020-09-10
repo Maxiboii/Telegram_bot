@@ -49,4 +49,4 @@ class Google:
 
 
 username = 'cmi65436-ames22@lll.kpi.ua'
-password = 'Killer0304'
+password = 'Killer00304'
