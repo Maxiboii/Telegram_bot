@@ -25,9 +25,9 @@ class Google:
             if window_handle != original_window:
                 self.driver.switch_to.window(window_handle)
                 break
-        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
+        self.driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input').send_keys(username)
         # self.driver.find_element_by_xpath('//*[@id="identifierNext"]').click()
-        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.ENTER) #try to click it instead
+        self.driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input').send_keys(Keys.ENTER) #try to click it instead
         sleep(5)
         # //*[@id="password"]/div[1]/div/div[1]/input
 
