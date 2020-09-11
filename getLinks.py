@@ -10,14 +10,12 @@ class Google:
         self.password = password
 
     def login(self):
-        # try:
-        #     self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
-        # except:
-        #
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--headless')
-
-        self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
+        try:
+            self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
+        except:
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_argument('--headless')
+            self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
@@ -28,10 +26,12 @@ class Google:
                 self.driver.switch_to.window(window_handle)
                 break
         self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
-        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.RETURN)
+        self.driver.find_element_by_xpath('//*[@id="identifierNext"]/div/button/div[2]').click()
+        # self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.RETURN) #try to click it instead
         sleep(5)
         self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(Keys.RETURN)
+        self.driver.find_element_by_xpath('//*[@id="passwordNext"]/div/button/div[2]').click()
+        # self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(Keys.RETURN)
         sleep(5)
         self.driver.switch_to.window(original_window)
 
@@ -57,3 +57,7 @@ class Google:
 
 username = 'cmi65436-ames22@lll.kpi.ua'
 password = 'Killer00304'
+# two_inst = Google(username, password)
+# two_inst.login()
+# sleep(20)
+# two_inst.q()
