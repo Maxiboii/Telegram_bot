@@ -15,7 +15,7 @@ class Google:
         except:
             chrome_options = webdriver.ChromeOptions()
             # chrome_options.add_argument('--headless')
-            self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
+            self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver')#, chrome_options=chrome_options)
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
