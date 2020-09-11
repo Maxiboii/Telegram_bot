@@ -13,10 +13,12 @@ class Google:
         try:
             self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
         except:
-            chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
-            chrome_options.add_argument('--window-size=1920,1080')
-            self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
+            print("Can't find webdriver")
+            return "Can't find webdriver"
+        #     chrome_options = webdriver.ChromeOptions()
+        #     chrome_options.add_argument('--headless')
+        #     chrome_options.add_argument('--window-size=1920,1080')
+        #     self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
         sleep(5)
@@ -27,13 +29,9 @@ class Google:
                 self.driver.switch_to.window(window_handle)
                 break
         self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
-        # self.driver.find_element_by_xpath('//*[@id="identifierNext"]').click()
-        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.ENTER) #try to click it instead
-        sleep(10)
-        # //*[@id="password"]/div[1]/div/div[1]/input
-
+        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.ENTER)
+        sleep(5)
         self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(password)
-        # self.driver.find_element_by_xpath('//*[@id="passwordNext"]').click()
         self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(Keys.ENTER)
         sleep(5)
         self.driver.switch_to.window(original_window)
