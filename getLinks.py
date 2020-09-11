@@ -26,11 +26,11 @@ class Google:
                 self.driver.switch_to.window(window_handle)
                 break
         self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
-        self.driver.find_element_by_xpath('//*[@id="identifierNext"]/div/button').click()
+        self.driver.find_element_by_xpath('//*[@id="identifierNext"]/div').click()
         # self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.RETURN) #try to click it instead
         sleep(5)
         self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//*[@id="passwordNext"]/div/button').click()
+        self.driver.find_element_by_xpath('//*[@id="passwordNext"]/div').click()
         # self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(Keys.RETURN)
         sleep(5)
         self.driver.switch_to.window(original_window)
