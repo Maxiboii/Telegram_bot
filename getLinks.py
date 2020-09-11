@@ -15,7 +15,7 @@ class Google:
         except:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
-            chrome_options.add_argument('--window-size=1024,768')
+            chrome_options.add_argument('--window-size=1920,1080')
             self.driver = webdriver.Chrome('/home/maksimchichkan90/Downloads/chromedriver', chrome_options=chrome_options)
         self.driver.get('https://www.coursera.org/?authMode=login')
         original_window = self.driver.current_window_handle
