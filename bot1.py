@@ -85,7 +85,7 @@ def update_DB():
     two_inst.login()
     toa = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg0Nzk1NDgw')
     oke = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg5MzU4NTU1')
-    angl = 'вона нас не любить :с'
+    angl = two_inst.get_link('https://classroom.google.com/u/1/c/MTU5MTk4NjIyMTA4')
     moac = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyOTA5NzE0MzM2')
     nastenka = 'https://meet.google.com/xwq-zvks-mgw'
     schema = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyMDE1ODE3ODYz')
