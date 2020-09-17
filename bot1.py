@@ -87,13 +87,14 @@ def update_DB():
     oke = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg5MzU4NTU1')
     angl = two_inst.get_link('https://classroom.google.com/u/1/c/MTU5MTk4NjIyMTA4')
     moac = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyOTA5NzE0MzM2')
-    nastenka = 'https://meet.google.com/xwq-zvks-mgw'
+    nastenka_lab = 'https://meet.google.com/jpt-hwcx-vbi'
+    nastenka_pr = 'https://meet.google.com/esc-chjz-kan'
     schema = two_inst.get_link('https://classroom.google.com/u/1/c/MTUyMDE1ODE3ODYz')
     tps = two_inst.get_link('https://classroom.google.com/u/1/c/MTQ4OTI1MjY2Njc1')
     two_inst.q()
 
     links = [toa,oke,oke,oke,toa,angl,moac,toa,schema,schema,schema,
-            tps,tps,nastenka,moac,oke,oke,toa,angl,moac,toa,schema,schema,tps,tps,nastenka]
+            tps,tps,nastenka_lab,moac,oke,oke,toa,angl,moac,toa,schema,schema,tps,tps,nastenka_pr]
 
     conn = sqlite3.connect('rozklad.sqlite')
     cur = conn.cursor()
@@ -209,6 +210,7 @@ def update_DB1(bot, update):
     chat_id = update.message.chat_id
     bot.send_message(chat_id = chat_id, text = update_DB())
 
+
 ######### run bot
 
 def main():
@@ -219,6 +221,7 @@ def main():
     dp.add_handler(CommandHandler('update',update_DB1))
     updater.start_polling()
     updater.idle()
+
 
 if __name__ == '__main__':
     main()
