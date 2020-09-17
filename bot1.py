@@ -187,6 +187,7 @@ for para, kolichestvo in kilkist.items():
 
 da_suka = {'1': w1l, '2': w2l}
 
+
 ######formatting
 
 def get_mes(week, day):
@@ -195,7 +196,7 @@ def get_mes(week, day):
     for i in da_suka[str(week)]:
         for s in i:
             if day in s:
-                mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + '\n' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
+                mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + ' ' + s[7].split()[1] + '\n' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
     return mes
 
 def chotamsednya(bot, update):
