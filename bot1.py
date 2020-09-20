@@ -18,13 +18,13 @@ tomorrow_week_number = time.strftime('%W', time.localtime(time_in_sec+86400))
 tomorrow_weekday = time.strftime('%A', time.localtime(time_in_sec+86400))
 
 wd_translation = {
-'Monday': 'Понеділок',
-'Tuesday': 'Вівторок',
-'Wednesday': 'Середа',
-'Thursday': 'Четвер',
-'Friday': "П'ятниця",
-'Saturday': 'Субота',
-'Sunday': 'Неділя'
+    'Monday': 'Понеділок',
+    'Tuesday': 'Вівторок',
+    'Wednesday': 'Середа',
+    'Thursday': 'Четвер',
+    'Friday': "П'ятниця",
+    'Saturday': 'Субота',
+    'Sunday': 'Неділя'
 }
 
 def what_is_today(twn, twd):
@@ -36,7 +36,9 @@ def what_is_today(twn, twd):
         return (current_week, wd_translation[twd])
 
 
-### filling the DB
+#  filling the DB
+
+
 def update_DB():
     one_inst = getClasses.Rozklad()
     x = one_inst.get_rozklad()
@@ -47,7 +49,8 @@ def update_DB():
     cur.execute('''DROP TABLE IF EXISTS Classes''')
 
     cur.execute('''CREATE TABLE Classes
-        (id INTEGER UNIQUE, week_No INTEGER, weekday TEXT, No INTEGER, tm TEXT, teacher TEXT, class TEXT, room TEXT, link TEXT)''')
+        (id INTEGER UNIQUE, week_No INTEGER, weekday TEXT, No INTEGER,
+        tm TEXT, teacher TEXT, class TEXT, room TEXT, link TEXT)''')
 
     print('Filling the Databse')
     count_id = 0
@@ -57,8 +60,10 @@ def update_DB():
         for subj in x['week1'][dayk]:
             if subj != '':
                 print(subj)
-                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, tm, teacher, class, room)
-                    VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj[0], subj[1], subj[2], subj[3] ))
+                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No,
+                weekday, No, tm, teacher, class, room)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (count_id, w, dayk,
+                    subj_count, subj[0], subj[1], subj[2], subj[3]))
                 count_id += 1
                 print('Adding', subj)
             subj_count += 1
@@ -69,8 +74,10 @@ def update_DB():
         subj_count = 1
         for subj in x['week2'][dayk]:
             if subj != '':
-                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No, weekday, No, tm, teacher, class, room)
-                    VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )''', ( count_id, w, dayk, subj_count, subj[0], subj[1], subj[2], subj[3] ))
+                cur.execute('''INSERT OR IGNORE INTO Classes (id, week_No,
+                weekday, No, tm, teacher, class, room)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (count_id, w, dayk,
+                    subj_count, subj[0], subj[1], subj[2], subj[3]))
                 count_id += 1
                 print('Adding', subj)
             subj_count += 1
@@ -93,8 +100,14 @@ def update_DB():
     tps = two_inst.get_link('https://classroom.google.com/u/1/c/MTQ4OTI1MjY2Njc1')
     two_inst.q()
 
-    links = [toa,oke,oke,oke,toa,angl,moac,toa,schema,schema,schema,
-            tps,tps,nastenka_lab,moac,oke,oke,toa,angl,moac,toa,schema,schema,tps,tps,nastenka_pr]
+    links = [toa, oke, oke, oke,
+            toa, angl, moac,
+            toa, schema, schema, schema,
+            tps, tps, nastenka_lab,
+            moac, oke, oke,
+            toa, angl, moac,
+            toa, schema, schema,
+            tps, tps, nastenka_pr]
 
     conn = sqlite3.connect('rozklad.sqlite')
     cur = conn.cursor()
@@ -130,6 +143,8 @@ def update_DB():
 
 
 # database
+
+
 conn = sqlite3.connect('rozklad.sqlite')
 cur = conn.cursor()
 
@@ -149,8 +164,8 @@ for den in rozkladData_lst_y:
     kilkist[den] = rozkladData_lst_y.count(den)
 
 
-w1l = [[],[],[],[],[]]
-w2l = [[],[],[],[],[]]
+w1l = [[], [], [], [], []]
+w2l = [[], [], [], [], []]
 for para, kolichestvo in kilkist.items():
     quan_ls = list(kilkist.values())
     if para == '1 Понеділок':
@@ -185,15 +200,16 @@ for para, kolichestvo in kilkist.items():
             w2l[4].append(rozkladData_lst[i])
 
 
-da_suka = {'1': w1l, '2': w2l}
+rasp = {'1': w1l, '2': w2l}
 
 
-######formatting
+#  formatting
+
 
 def get_mes(week, day):
     mes = ''
     mes += 'Тиждень ' + str(week) + ', ' + day + '\n'
-    for i in da_suka[str(week)]:
+    for i in rasp[str(week)]:
         for s in i:
             if day in s:
                 mes += str(s[3]) + '.\t' + s[4] + ' ' + s[5] + ' ' + s[7].split()[1] + '\n' + s[6] + '\n' + '-  ' + s[8] + '\n\n'
@@ -201,25 +217,26 @@ def get_mes(week, day):
 
 def chotamsednya(bot, update):
     chat_id = update.message.chat_id
-    bot.send_message(chat_id = chat_id, text = get_mes(*what_is_today(today_week_number, today_weekday)))
+    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(today_week_number, today_weekday)))
 
 def chotamzavtra(bot, update):
     chat_id = update.message.chat_id
-    bot.send_message(chat_id = chat_id, text = get_mes(*what_is_today(tomorrow_week_number, tomorrow_weekday)))
+    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(tomorrow_week_number, tomorrow_weekday)))
 
 def update_DB1(bot, update):
     chat_id = update.message.chat_id
-    bot.send_message(chat_id = chat_id, text = update_DB())
+    bot.send_message(chat_id=chat_id, text=update_DB())
 
 
-######### run bot
+#  run bot
+
 
 def main():
     updater = Updater(config.token)
     dp = updater.dispatcher
-    dp.add_handler(CommandHandler('chotamsednya',chotamsednya))
-    dp.add_handler(CommandHandler('chotamzavtra',chotamzavtra))
-    dp.add_handler(CommandHandler('update',update_DB1))
+    dp.add_handler(CommandHandler('chotamsednya', chotamsednya))
+    dp.add_handler(CommandHandler('chotamzavtra', chotamzavtra))
+    dp.add_handler(CommandHandler('update', update_DB1))
     updater.start_polling()
     updater.idle()
 

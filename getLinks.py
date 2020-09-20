@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import sqlite3
 from time import sleep
 
+
 class Google:
 
     def __init__(self, username, password):
@@ -16,8 +17,6 @@ class Google:
         try:
             self.driver=webdriver.Chrome('/Users/Max/Desktop/Code/Selenium/chromedriver')
         except:
-            # print("Can't find webdriver")
-            # return "Can't find webdriver"
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
             chrome_options.add_argument('--window-size=1920,1080')
@@ -45,13 +44,6 @@ class Google:
         sleep(5)
         the_link = self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[2]/div/div[1]/div/div[2]/div[2]/span/a').get_attribute('href')
 
-        # qu = input('Quit? y/n  ')
-        # while True:
-        #     if qu == 'y':
-        #         self.driver.quit()
-        #         break
-        #     elif qu == 'n':
-        #         sleep(10)
         return the_link
 
     def q(self):
