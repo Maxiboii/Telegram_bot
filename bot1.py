@@ -88,7 +88,10 @@ def update_DB():
     print('Database filled 50%')
     print('Might take a few minutes...')
 
-    two_inst = getLinks.Google(getLinks.username, getLinks.password)
+
+    username = input('Enter username: ')
+    password = input('Enter password: ')
+    two_inst = getLinks.Google(username, password)
     two_inst.login()
     toa = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg0Nzk1NDgw')
     oke = two_inst.get_link('https://classroom.google.com/u/1/c/MTUxNjg5MzU4NTU1')

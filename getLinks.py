@@ -30,10 +30,10 @@ class Google:
             if window_handle != original_window:
                 self.driver.switch_to.window(window_handle)
                 break
-        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
+        self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(self.username)
         self.driver.find_element_by_xpath('//input[@type="email"]').send_keys(Keys.ENTER)
         sleep(5)
-        self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(password)
+        self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(self.password)
         self.driver.find_element_by_xpath('//input[@type="password"]').send_keys(Keys.ENTER)
         sleep(5)
         self.driver.switch_to.window(original_window)
@@ -51,8 +51,6 @@ class Google:
 
 
 
-username = 'cmi65436-ames22@lll.kpi.ua'
-password = 'Killer00304'
 # two_inst = Google(username, password)
 # two_inst.login()
 # sleep(20)
