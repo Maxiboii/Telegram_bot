@@ -11,12 +11,6 @@ import getLinks
 import time
 
 
-time_in_sec = time.time()
-today_week_number = time.strftime('%W')
-today_weekday = time.strftime('%A')
-tomorrow_week_number = time.strftime('%W', time.localtime(time_in_sec+86400))
-tomorrow_weekday = time.strftime('%A', time.localtime(time_in_sec+86400))
-
 wd_translation = {
     'Monday': 'Понеділок',
     'Tuesday': 'Вівторок',
@@ -220,11 +214,16 @@ def get_mes(week, day):
 
 def chotamsednya(bot, update):
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(today_week_number, today_weekday)))
+    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(time.strftime('%W'),
+    time.strftime('%A')))
+    )
 
 def chotamzavtra(bot, update):
     chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(tomorrow_week_number, tomorrow_weekday)))
+    bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(time.strftime('%W',
+    time.localtime(time.time()+86400)), time.strftime('%A',
+    time.localtime(time.time()+86400))))
+    )
 
 def update_DB1(bot, update):
     chat_id = update.message.chat_id
