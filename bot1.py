@@ -213,6 +213,16 @@ def get_mes(week, day):
     return mes
 
 
+# commands
+
+def start_command(bot, update):
+    bot.send_message(
+        update.message.chat_id,
+        'Greetings! I help with giving you the schedule you need.\n\n' +
+        "To get today's schedule use\n/chotamsednya.\n\n" +
+        'To get schedule for tomorrow use\n/chotamzavtra.'
+        )
+
 def chotamsednya(bot, update):
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(time.strftime('%W'),
@@ -235,6 +245,7 @@ def update_DB1(bot, update):
 def main():
     updater = Updater(config.token)
     dp = updater.dispatcher
+    dp.add_handler(CommandHandler('start', start_command))
     dp.add_handler(CommandHandler('chotamsednya', chotamsednya))
     dp.add_handler(CommandHandler('chotamzavtra', chotamzavtra))
     dp.add_handler(CommandHandler('update', update_DB1))
