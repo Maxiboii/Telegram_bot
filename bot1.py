@@ -225,7 +225,6 @@ def start_command(bot, update):
 
 def chotamsednya(bot, update):
     chat_id = update.message.chat_id
-    keyboard = telebot.types.InlineKeyboardMarkup()
     bot.send_message(chat_id=chat_id, text=get_mes(*what_is_today(time.strftime('%W'),
     time.strftime('%A')))
     )
