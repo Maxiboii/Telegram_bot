@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-import telebot
 import requests
 import re
 import sqlite3
